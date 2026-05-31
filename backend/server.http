@@ -1,0 +1,219 @@
+### =========================
+### USER REGISTRATION APIs
+### =========================
+
+# Register Student
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+  "name": "Harsha",
+  "email": "23eg105b34@anurag.edu.in",
+  "password": "123456",
+  "confirmPassword": "123456",
+  "branch": "CSE",
+  "cgpa": 8.02
+}
+
+###
+
+# Register Admin
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+  "name": "Admin",
+  "email": "admin@gmail.com",
+  "password": "123456",
+  "confirmPassword": "123456",
+  "role": "admin"
+}
+
+### =========================
+### AUTHENTICATION APIs
+### =========================
+
+# Login Student
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "admin@gmail.com",
+  "password": "123456"
+}
+
+### =========================
+### PROFILE APIs
+### =========================
+
+# Get Student Profile
+GET http://localhost:5000/api/users/profile
+Authorization: Bearer YOUR_STUDENT_TOKEN
+
+###
+
+# Access Admin Dashboard
+GET http://localhost:5000/api/users/admin-dashboard
+Authorization: Bearer YOUR_ADMIN_TOKEN
+
+###
+
+# Update Student Profile
+PUT http://localhost:5000/api/users/profile
+Authorization: Bearer YOUR_STUDENT_TOKEN
+Content-Type: application/json
+
+{
+  "name": "Riyaz",
+  "cgpa": 10,
+  "branch": "IT",
+  "skills": ["python", "c", "typescript"]
+}
+
+### =========================
+### COMPANY MANAGEMENT APIs
+### =========================
+
+# Create Company (Admin Only)
+POST http://localhost:5000/api/companies
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTUyMWVkNmYxMmQ4MzlhNzc4NDljMiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3OTc4MzY5NywiZXhwIjoxNzgwMzg4NDk3fQ.68gpRkzci_LUdAf49Q1CYz6TxhVRlvEx_CVpsU7BAhM
+Content-Type: application/json
+
+{
+  "companyName": "Google",
+  "role": "Software Engineer",
+  "package": 24,
+  "minCGPA": 8,
+  "allowedBranches": [
+    "CSE"
+  ],
+  "requiredSkills": [
+    "python",
+    "mongodb"
+  ],
+  "deadline": "2026-06-10"
+}
+
+###
+
+# Get All Companies
+GET http://localhost:5000/api/companies
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTU1M2QzOWFkMWZlMGVjZGMyNzQxMyIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzc5NzgzNzk3LCJleHAiOjE3ODAzODg1OTd9.itHQhixhJuhsAdbtT4fF5Eoh0-GwImHIHDL442trh8w
+
+###
+
+# Get Single Company
+GET http://localhost:5000/api/companies/COMPANY_ID
+Authorization: Bearer YOUR_STUDENT_TOKEN
+
+###
+
+# Update Company (Admin Only)
+PUT http://localhost:5000/api/companies/COMPANY_ID
+Authorization: Bearer YOUR_ADMIN_TOKEN
+Content-Type: application/json
+
+{
+  "packageLPA": 30,
+  "deadline": "2026-06-20"
+}
+
+###
+
+# Delete Company (Admin Only)
+DELETE http://localhost:5000/api/companies/COMPANY_ID
+Authorization: Bearer YOUR_ADMIN_TOKEN
+
+### =========================
+### ELIGIBILITY FILTERING APIs
+### =========================
+
+# Get Eligible Students For Company
+GET http://localhost:5000/api/companies/COMPANY_ID/eligible-students
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTU1M2QzOWFkMWZlMGVjZGMyNzQxMyIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzc5NzgzNzk3LCJleHAiOjE3ODAzODg1OTd9.itHQhixhJuhsAdbtT4fF5Eoh0-GwImHIHDL442trh8w
+
+### =========================
+### APPLICATION APIs
+### =========================
+
+# Apply To Company
+POST http://localhost:5000/api/applications/apply/COMPANY_ID
+Authorization: Bearer YOUR_STUDENT_TOKEN
+
+###
+
+# Get My Applications
+GET http://localhost:5000/api/applications/my-applications
+Authorization: Bearer YOUR_STUDENT_TOKEN
+
+###
+
+# Get Company Applicants (Admin Only)
+GET http://localhost:5000/api/applications/company/6a152c2b31aaf2a88480197d
+Authorization: Bearer YOUR_ADMIN_TOKEN
+
+### =========================
+### RECRUITMENT ROUND TRACKING
+### =========================
+
+# Update Application Status (Admin Only)
+PUT http://localhost:5000/api/applications/APPLICATION_ID/status
+Authorization: Bearer YOUR_ADMIN_TOKEN
+Content-Type: application/json
+
+{
+  "status": "Round 1"
+}
+
+### =========================
+### EMAIL TESTING API FLOW
+### =========================
+
+# Apply To Another Company To Trigger Email
+POST http://localhost:5000/api/applications/apply/6a15585b600ee1dfd4138f57
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTU1M2QzOWFkMWZlMGVjZGMyNzQxMyIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzc5NzgyOTEyLCJleHAiOjE3ODAzODc3MTJ9.QpznGEY3hRk8hHmXR623twr7NQ_OBKFbaLpphUVpn1U
+
+# Get Eligible Companies
+###
+GET http://localhost:5000/api/companies/eligible
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTU1M2QzOWFkMWZlMGVjZGMyNzQxMyIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzc5NzgyOTEyLCJleHAiOjE3ODAzODc3MTJ9.QpznGEY3hRk8hHmXR623twr7NQ_OBKFbaLpphUVpn1U
+
+###
+GET http://localhost:5000/api/dashboard/stats
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTUyMWVkNmYxMmQ4MzlhNzc4NDljMiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3OTc4NjAwMCwiZXhwIjoxNzgwMzkwODAwfQ.S-wFtJjmePSaQrUbW6R5mJOs_lnO40CHHECGVhqDLXY
+
+###
+GET http://localhost:5000/api/companies?search=google
+
+###
+GET http://localhost:5000/api/companies?search=google&sort=high&page=1&limit=5
+
+
+###
+GET http://localhost:5000/api/dashboard/student
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTU1M2QzOWFkMWZlMGVjZGMyNzQxMyIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzc5ODA1NjA4LCJleHAiOjE3ODA0MTA0MDh9.fBILw7BaL1poK5KtR6qBinF806655A6s299prHRiIO0
+
+###
+GET http://localhost:5000/api/dashboard/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTUyMWVkNmYxMmQ4MzlhNzc4NDljMiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3OTgwNTc1NCwiZXhwIjoxNzgwNDEwNTU0fQ.GXuwHSLkrf18PHVFr0FDvZoKrWjTMUtEEjUDrwDpdYE
+
+
+###
+PUT http://localhost:5000/api/applications/6a15a5010a53431ad31bba91/status
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTUyMWVkNmYxMmQ4MzlhNzc4NDljMiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3OTgwNTc1NCwiZXhwIjoxNzgwNDEwNTU0fQ.GXuwHSLkrf18PHVFr0FDvZoKrWjTMUtEEjUDrwDpdYE
+Content-Type: application/json
+
+{
+    "status": "Shortlisted"
+}
+
+###
+PUT http://localhost:5000/api/users/resume
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTU1M2QzOWFkMWZlMGVjZGMyNzQxMyIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzc5ODA1NjA4LCJleHAiOjE3ODA0MTA0MDh9.fBILw7BaL1poK5KtR6qBinF806655A6s299prHRiIO0
+
+--WebKitFormBoundary
+Content-Disposition: form-data; name="resume"; filename="resume.pdf"
+Content-Type: application/pdf
+
+< ./resume.pdf
+--WebKitFormBoundary--
